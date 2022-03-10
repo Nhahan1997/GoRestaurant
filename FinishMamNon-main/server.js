@@ -61,7 +61,7 @@ app.get("/", checkNotAuthenticated, (req, res) => {
   res.render("home");
 });
 //using for contact
-app.get("/contact/", checkNotAuthenticated, (req, res) => {
+app.get("/contact", checkNotAuthenticated, (req, res) => {
   res.render("contact");
 });
 
