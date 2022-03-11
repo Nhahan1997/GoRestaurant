@@ -1,7 +1,7 @@
 $(function(){
     $('#get-button').on('click',function(){     //when click button TWEETGET defined in html  
       $.ajax({                               //using ajax to write code
-        url: '/buildapp/',               //access url data stored in serever
+        url: '/buildapp/menu',               //access url data stored in serever
         contentType: 'application/json',     //type of json
         success: function(response){         //when suceess that function below is append these field and button in web
           console.log(response);
@@ -34,7 +34,7 @@ $(function(){
         var createInput=$('#idcreate-input');        // create object createInput for id input field
         var createInput1=$('#textcreate-input');     //create object createInput1 for text input field
         $.ajax({
-          url:"/arrayof3Items",                      //access data of server
+          url:"/buildapp/menu",                      //access data of server
           method: 'POST',                            //post data on server
           contentType:'application/json',
           data:JSON.stringify({id: createInput.val(),text: createInput1.val() }),  //stringify Json
@@ -58,7 +58,7 @@ $(function(){
         var created_at=rowEl.find('.created_at').val();      //use rowEl to find created_at
   
         $.ajax({
-        url: '/arrayof3Items/'+'screen_name',                           //access id of data
+        url: '/buildapp/'+id,                           //access id of data
         method: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify({screen_name: screen_name}),

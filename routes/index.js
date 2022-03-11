@@ -6,9 +6,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/buildapp',function(req, res, next) {
-  res.render('buildapp', { title: 'Express' });
-});
+
 
 
 

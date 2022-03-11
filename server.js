@@ -48,6 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
+app.use(express.json());
 
 
 app.get("/index", checkAuthenticated, (req, res) => {
@@ -65,9 +66,10 @@ app.get("/", checkNotAuthenticated, (req, res) => {
   res.render("home");
 });
 //using for contact
-app.get("/contact/", checkNotAuthenticated, (req, res) => {
-  res.render("contact");
-});
+//app.get("/contact/", checkNotAuthenticated, (req, res) => {
+  //res.render("contact");
+  //res.send({menu:menu});
+//});
 
 let k=0;
 //readfile json menu and send data
@@ -86,14 +88,29 @@ fs.readFile('menu.json','utf8',function(err,data){       //function readfile
   }   
 
   //Restful API get
-app.get("/buildapp/",checkNotAuthenticated,(req,res)=>{
+app.get("/contact",checkNotAuthenticated,(req,res)=>{
 
-  //res.send({menu:menu});
 
-  res.render("buildapp");
+ res.render("contact");
+ //res.send({menu:menu});
 
 })
+app.get("/buildapp",checkNotAuthenticated,(req,res)=>{
 
+
+  res.render("buildapp");
+  //res.send({menu:menu});
+  //console.log('success fully get')
+ 
+ })
+ app.get("/buildapp/menu",checkNotAuthenticated,(req,res)=>{
+
+
+ // res.render("buildapp");
+  res.send({menu:menu});
+  //console.log('success fully get')
+ 
+ })
 app.post(
   "/login",
   checkNotAuthenticated,
