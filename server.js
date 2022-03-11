@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
+
 const methodOverride = require("method-override");
 const User = require("./models/User");
 const bcrypt = require("bcryptjs");
@@ -13,6 +14,9 @@ const {
 } = require("./middlewares/auth");
 
 const app = express();
+const fs=require('fs'); //read file fs
+var menu=[];  //create array to store these data from read file
+
 app.use(session({ secret: 'somevalue' }));//'somevalue'
 //add code here to solve deprecated
 
@@ -65,7 +69,30 @@ app.get("/contact/", checkNotAuthenticated, (req, res) => {
   res.render("contact");
 });
 
+let k=0;
+//readfile json menu and send data
+fs.readFile('menu.json','utf8',function(err,data){       //function readfile
+  if(err) throw err;                                   //if read file error, get the notice
+  let readData=JSON.parse(data);                          //parse data and then store on variable readData
+  for(const eachItem of readData){                     //loop to get data
+    menu[k]={                       
+      id:eachItem.id,                             //get id
+      name:eachItem.name,                         //get name of food
+      price:eachItem.price,                       //get price of food
+      kind:eachItem.kind,                         //get kind of food
+  }
+  k=k+1;                                                //increament to store data via loop
+  console.log(menu)                          // check data in console log
+  }   
 
+  //Restful API get
+app.get("/buildapp/",checkNotAuthenticated,(req,res)=>{
+
+  //res.send({menu:menu});
+
+  res.render("buildapp");
+
+})
 
 app.post(
   "/login",
@@ -115,4 +142,5 @@ mongoose
     app.listen(3000, () => {
       console.log("Server is running on Port 3000");
     });
-  });
+  })
+})
