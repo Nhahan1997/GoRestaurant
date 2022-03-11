@@ -1,0 +1,132 @@
+*{
+    margin: 0;
+    padding: 10px;
+    text-align: cencter;
+    background:linear-gradient(rgba(0, 2, 0, 0.664),rgba(1, 0, 1, 0.527)),url("./images/image1.jpg");
+}
+
+.contact-title
+{
+   margin-top: 100px;
+   color: #fff;
+   text-transform: uppercase;
+   text-align: cencter;
+   transition: all 4s ease-in-out;
+
+
+}
+
+.contact-title h1{
+    margin-top: 100px;
+    font-size: 32px;
+    line-height: 10px;
+    color: antiquewhite;
+    padding: auto;
+
+
+}
+.contact-title h2{
+    color: antiquewhite;
+    font-size: 18px;
+    padding: auto;
+
+}
+.form-control
+{
+  width: 600px;
+  background: transparent;
+  border:0cm;
+  outline: none;
+  border-bottom: 1px solid chocolate;
+  color: #fff;
+  font-size:18px;
+  margin-bottom:16px;
+
+}
+
+form .submit
+{
+     background: #fff;
+     border-color: transparent;
+     color:bisque;
+     font-size:32;
+     font-weight: bold;
+     letter-spacing: 3px;
+     height: 50px;
+     margin-top: 20px;
+
+
+
+}
+
+.btn{
+  padding: 10px 60px;
+  background: chocolate;
+  border:0;
+  outline:none;
+  cursor:pointer;
+  font-size:22px;
+  font-weight:500;
+  border-radius:30;
+
+
+
+}
+.popup{
+    width: 400px;
+    background-color: #fff;
+    border-radius: 6px;
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translate(-50%,-50%),scale(0.1);
+    text-align:center;
+    padding:0 30px 30px;
+    color: #333;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+
+
+}
+
+.open-popup{
+  visibility: visible;
+  top:50%;
+  transform: translate(-50%,-50%),scale(1);
+
+
+}
+
+
+
+.popup img{
+ width:100px;
+ margin-top:-50px;
+ border-radius: 50%;
+ box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+
+
+}
+.popup h2{
+     font-size:40px;
+     font-weight:500;
+     margin:30px 0 10px;
+
+
+
+}
+.popup button{
+     width:100%;
+     margin-top:50px;
+     padding:10px 0;
+     background:#6fd649;
+     color:#fff;
+     border:0;
+     outline:none;
+     font-size:18px;
+     border-radius: 4px;
+     cursor:pointer;
+     box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+
+}
