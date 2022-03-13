@@ -1,7 +1,7 @@
 $(function(){
     $('#get-button').on('click',function(){     //when click button TWEETGET defined in html  
       $.ajax({                               //using ajax to write code
-        url: '/buildapp/',               //access url data stored in serever
+        url: '/buildapp/menu',               //access url data stored in serever
         contentType: 'application/json',     //type of json
         success: function(response){         //when suceess that function below is append these field and button in web
           console.log(response);
