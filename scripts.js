@@ -58,7 +58,7 @@ $(function(){
         var created_at=rowEl.find('.created_at').val();      //use rowEl to find created_at
   
         $.ajax({
-        url: '/buildapp/'+id,                           //access id of data
+        url: '/buildapp/menu'+id,                           //access id of data
         method: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify({screen_name: screen_name}),
@@ -73,7 +73,7 @@ $(function(){
         var rowEl=$(this).closest('tr');
         var id=rowEl.find('.id').text();
         $.ajax({
-        url:'/arrayof3Items/'+id,
+        url:'/buildapp/menu'+id,
         method:'DELETE',
         contentType:'application/json',
         success: function(response){
