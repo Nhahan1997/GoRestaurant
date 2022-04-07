@@ -3,7 +3,6 @@ const express = require("express");                       //create constant usin
 const mongoose = require("mongoose");                    //create constant using mongoose
 const passport = require("passport");                    //Passport is an authentication middleware for Node
                                                          // that authenticates requests.
-
 const session = require("express-session");              //Create a session middleware with the given options.
 const methodOverride = require("method-override");       //create constant using methodOverride
 const flash = require("express-flash");                  //create constant using flash
@@ -39,13 +38,7 @@ initializePassport(
 app.set("view engine", "ejs");                             // using view engine with ejs
 app.use(express.urlencoded({ extended: true }));         
 app.use(flash());                                          //using flash
-app.use(           
-  session({                                                //using a session middleware with the given options.
-    secret: process.env.SESSION_SECRET,                   
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+
 app.use(passport.initialize());                            //using passport initialize    
 app.use(passport.session());                               
 app.use(methodOverride("_method"));
