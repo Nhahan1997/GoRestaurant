@@ -1,4 +1,3 @@
-//require("dotenv").config();
 const express = require("express");                       //create constant using express 
 const mongoose = require("mongoose");                    //create constant using mongoose
 const passport = require("passport");                    //Passport is an authentication middleware for Node
@@ -38,7 +37,13 @@ initializePassport(
 app.set("view engine", "ejs");                             // using view engine with ejs
 app.use(express.urlencoded({ extended: true }));         
 app.use(flash());                                          //using flash
-
+app.use(           
+  session({                                                //using a session middleware with the given options.
+    secret: process.env.SESSION_SECRET,                   
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.use(passport.initialize());                            //using passport initialize    
 app.use(passport.session());                               
 app.use(methodOverride("_method"));
