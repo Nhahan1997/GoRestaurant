@@ -106,14 +106,15 @@ app.post('/buildapp/menus',function(req,res){
   var textmenuName=req.body.name;     //using body parser to get text data on scripts input and story via assign3text
   var idforMenu=req.body.id;    //using body parse to get user_ID input on scripts file
   //var newPrice=req.body.
-  var text_empty="";
+  var newprice=req.body.price;
+  var newkind=req.body.kind;
   
- var text_empty="";                  
+                   
    menus.push({               //push these data on server
      id:idforMenu,              //id
      name:textmenuName,          //created_at
-     price:text_empty="",              //text
-     kind: text_empty         //screen_name
+     price:newprice,              //text
+     kind:newkind,         //screen_name
   });
   res.send('successfully created');
 })
@@ -123,12 +124,20 @@ app.post('/buildapp/menus',function(req,res){
 app.put('/buildapp/menus/:id',function(req,res){   
   var id=req.params.id;                         //wrap id 
   var newname=req.body.name;      //wrap screen_name that input and story newscreen_name
+  var newprice=req.body.price;     //wrap price
+  var newkind=req.body.kind;        //wrap newkind
   var found=false;                          
-  menus.forEach(function(menu,index){   //loop all items
-     if(!found&&menu.id==Number(id)){                   
-        menu.name=newname;
-     }
-  })
+ 
+  
+ menus.forEach(function(menu,index){   //loop all items
+  if(!found&&menu.id==Number(id)){                   
+     menu.name=newname;
+     menu.price=newprice;
+     menu.kind=newkind;
+  }
+})
+
+
      res.send('successfully updated data');   //message display when successfully updated
 })
 //delete here
