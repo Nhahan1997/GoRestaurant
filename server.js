@@ -153,7 +153,17 @@ app.delete('/buildapp/menus/:id',function(req,res){
 
   res.send('successfully deleted product');
 })
+//for new website
+app.get("/createmenu",checkNotAuthenticated,(req,res)=>{
 
+  res.render("createmenu");
+  
+ })
+ app.get("/createmenu/menus",checkNotAuthenticated,(req,res)=>{
+
+  res.send({menus:menus});
+  
+ })
 
 //new put here
 /*
