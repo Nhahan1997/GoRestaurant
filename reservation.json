@@ -1,0 +1,25 @@
+[{
+    "id": "1",
+    "customer": "Samuel",
+    "seat": "3A",
+    "available": "booked",
+    "time":"4h30pm"
+  },
+  {
+    "id": "2",
+    "customer": "Nguyen",
+    "seat": "4A",
+    "available": "booked",
+    "time":"5h30pm"
+
+
+  },
+  {
+  "id": "3",
+  "customer": "Leo",
+  "seat": "5A",
+  "available": "booked",
+  "time":"630pm"
+  
+  
+  }]

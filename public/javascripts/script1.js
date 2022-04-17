@@ -15,11 +15,7 @@ $(function(){
             <td><input type="text" class="price" value= "'+menus.price+ '"></td>\
             <td><input type="text" class="kind" value="'+menus.kind+ '"></td>\
             <td>\
-            <button class ="update-button">UPDATE</button>\
-            <button class ="delete-button">DELETE</button>\
-            </td>\
-            </tr>\
-            ');
+                  ');
           });   
         }
       });

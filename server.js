@@ -15,7 +15,8 @@ const {
 
 const app = express();                              
 const fs=require('fs');                                  //read file fs
-var menus=[];                                             //create array to store these data from read file
+var menus=[];                                             //create array to store menus from read file
+var reservations=[];                                       //create array to store reservations from read file
 
 app.use(session({ secret: 'somevalue' }));                  //'somevalue'
 //add code here to solve deprecated
@@ -82,6 +83,25 @@ fs.readFile('menu.json','utf8',function(err,data){       //function readfile
   console.log(menus)                          // check data in console log
   }   
 
+
+  let j=0;
+  fs.readFile('reservation.json','utf8',function(err,data1){       //function readfile
+    if(err) throw err;                                   //if read file error, get the notice
+    let readData1=JSON.parse(data1);                          //parse data and then store on variable readData
+    for(const eachItem of readData1){                     //loop to get data
+      reservations[j]={                       
+        id:eachItem.id,                             //get id
+        customer:eachItem.customer,                         //get customer of reservation
+        seat:eachItem.seat,                                 //get seat booking for customer
+        available:eachItem.available,                       //get information of seats is booked or empty
+        time:eachItem.time,                         //get time that customer booking
+    }
+    j=j+1;                                                //increament to store data via loop
+    console.log(reservations)                          // check data in console log
+    }   
+  
+
+
   //Restful API get
 app.get("/contact",checkNotAuthenticated,(req,res)=>{       //get contact page and render contact file
 
@@ -119,7 +139,7 @@ app.post('/buildapp/menus',function(req,res){
   res.send('successfully created');
 })
 
-//put here
+//put here FOR MENU
 
 app.put('/buildapp/menus/:id',function(req,res){   
   var id=req.params.id;                         //wrap id 
@@ -154,9 +174,9 @@ app.delete('/buildapp/menus/:id',function(req,res){
   res.send('successfully deleted product');
 })
 //for new website
-app.get("/createmenu",checkNotAuthenticated,(req,res)=>{
+app.get("/createmenu",checkNotAuthenticated,(req,res)=>{  //build an app for menu
 
-  res.render("createmenu");
+  res.render("createmenu");                               //render website menu using data from menu
   
  })
  app.get("/createmenu/menus",checkNotAuthenticated,(req,res)=>{
@@ -166,22 +186,85 @@ app.get("/createmenu",checkNotAuthenticated,(req,res)=>{
  })
 
 //new put here
-/*
-put('/buildapp/menu/:id',function(req,res){
-  var id=req.params.id;
-  newName=req.body.newName;
-  var fourd=false;
-
-menu.forEach(function(menu,index){
-   if(!found&&menu.id===Number(id)){
-       menu.name=newName;
-   }
+//for reservation 
+app.get("/reservation",checkNotAuthenticated,(req,res)=>{      //get reservation page and render reservation pages
 
 
+  res.render("reservation");
 
+  })
+ app.get("/reservation/reservations",checkNotAuthenticated,(req,res)=>{ //get reservations and send data
+
+  res.send({reservations:reservations});
+  
+ })
+
+ //post here for RESERVATION app
+ app.post('/reservation/reservations',function(req,res){
+  var newCustomer=req.body.customer;     //using body parser to get customer
+  var idforCustomer=req.body.id;    //using body parse to ID for reservation
+  var newSeat=req.body.seat;        //using body parse to get Seat for reservation
+  var newAvailable=req.body.available;  //using body parse to get available reservation
+  var newTime=req.body.time;         //using body parse to get time for reservation
+  
+                   
+   reservations.push({               
+     id:idforCustomer,        //post id
+     customer:newCustomer,    //post customer
+     seat:newSeat,          //post seat
+     available:newAvailable,   //post available
+     time:newTime,         //screen_name
+  });
+  res.send('successfully created');
 })
+//put here for RESERVATION app
+//put here FOR MENU
+
+app.put('/reservation/reservations/:id',function(req,res){   
+  var id=req.params.id;                         //wrap id 
+  var newCustomer=req.body.customer;      //wrap customer name that input and store newsCustomer
+  var newSeat=req.body.seat;     //wrap seat 
+  var newAvailable=req.body.available;        //wrap available
+  var newTime=req.body.time; 
+  var found=false;                          
+ 
+  
+ reservations.forEach(function(reservation,index){   //loop all items
+  if(!found&&reservation.id==Number(id)){                   
+     reservation.customer=newCustomer;
+     reservation.seat=newSeat;
+     reservation.available=newAvailable;
+     reservation.time=newTime;
+  }
 })
-*/
+
+
+     res.send('successfully updated data');   //message display when successfully updated
+})
+//DELETE here for RESERVATION
+
+app.delete('/reservation/reservations/:id',function(req,res){
+  var id=req.params.id;                        //wrap id
+  var found=false;
+  reservations.forEach(function(reservation,index){ //loop
+     if(!found&&reservation.id==Number(id)){
+          reservations.splice(index,1);
+     }
+  })
+
+  res.send('successfully cancel reservation');
+})
+//for new website of RESERVATION
+app.get("/createReservation",checkNotAuthenticated,(req,res)=>{  //build an app for menu
+
+  res.render("createReservation");                               //render website menu using data from menu
+  
+ })
+ app.get("/createReservation/reservations",checkNotAuthenticated,(req,res)=>{
+
+  res.send({reservations:reservations});
+  
+ })
 
 
 
@@ -234,4 +317,5 @@ mongoose
       console.log("Server is running on Port 3000");
     });
   })
+})
 })
