@@ -11,23 +11,66 @@
   "price": "4.26",
   "kind": "breakfast"
 },
-
 {
   "id": "3",
+  "name": "Pho",
+  "price": "11.46",
+  "kind": "breakfast"
+},
+{
+  "id": "4",
   "name": "spaghetti",
   "price": "8.55",
-  "kind": "lunch"
+  "kind": "breakfast"
 },
 
 {
-  "id": "4",
-  "name": "soup",
+  "id": "5",
+  "name": "Soup",
   "price": "4.01",
   "kind": "lunch"
 },
 {
-  "id": "5",
-  "name": "pho",
-  "price": "11.46",
-  "kind": "breakfast"
+  "id": "6",
+  "name": "Potato Skins",
+  "price": "9.99",
+  "kind": "lunch"
+},
+{
+  "id": "7",
+  "name": "Onion Rings",
+  "price": "9.49",
+  "kind": "lunch"
+},
+{
+  "id": "8",
+  "name": "Bread Green Benans",
+  "price": "9.99",
+  "kind": "lunch"
+},
+{
+  "id": "9",
+  "name": "Shrimp Ceviche",
+  "price": "13.99",
+  "kind": "dinner"
+},
+
+{
+  "id": "10",
+  "name": "Steamer Clams",
+  "price": "13.99",
+  "kind": "dinner"
+},
+
+{
+  "id": "11",
+  "name": "Polynesian Coconut Shrimp",
+  "price": "16.99",
+  "kind": "dinner"
+},
+{
+  "id": "12",
+  "name": "Palikan Platter",
+  "price": "18.99",
+  "kind": "dinner"
 }]

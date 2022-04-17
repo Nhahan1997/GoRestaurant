@@ -1,4 +1,3 @@
-//require("dotenv").config();
 const express = require("express");                       //create constant using express 
 const mongoose = require("mongoose");                    //create constant using mongoose
 const passport = require("passport");                    //Passport is an authentication middleware for Node
@@ -16,7 +15,7 @@ const {
 
 const app = express();                              
 const fs=require('fs');                                  //read file fs
-var menu=[];                                             //create array to store these data from read file
+var menus=[];                                             //create array to store these data from read file
 
 app.use(session({ secret: 'somevalue' }));                  //'somevalue'
 //add code here to solve deprecated
@@ -38,7 +37,13 @@ initializePassport(
 app.set("view engine", "ejs");                             // using view engine with ejs
 app.use(express.urlencoded({ extended: true }));         
 app.use(flash());                                          //using flash
-
+app.use(           
+  session({                                                //using a session middleware with the given options.
+    secret: process.env.SESSION_SECRET,                   
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.use(passport.initialize());                            //using passport initialize    
 app.use(passport.session());                               
 app.use(methodOverride("_method"));
@@ -67,14 +72,14 @@ fs.readFile('menu.json','utf8',function(err,data){       //function readfile
   if(err) throw err;                                   //if read file error, get the notice
   let readData=JSON.parse(data);                          //parse data and then store on variable readData
   for(const eachItem of readData){                     //loop to get data
-    menu[k]={                       
+    menus[k]={                       
       id:eachItem.id,                             //get id
       name:eachItem.name,                         //get name of food
       price:eachItem.price,                       //get price of food
       kind:eachItem.kind,                         //get kind of food
   }
   k=k+1;                                                //increament to store data via loop
-  console.log(menu)                          // check data in console log
+  console.log(menus)                          // check data in console log
   }   
 
   //Restful API get
@@ -90,13 +95,96 @@ app.get("/buildapp",checkNotAuthenticated,(req,res)=>{      //get buildapp page 
 
   res.render("buildapp");
 
- 
- })
- app.get("/buildapp/menu",checkNotAuthenticated,(req,res)=>{
+  })
+ app.get("/buildapp/menus",checkNotAuthenticated,(req,res)=>{
 
-  res.send({menu:menu});
+  res.send({menus:menus});
   
  })
+//new post here
+app.post('/buildapp/menus',function(req,res){
+  var textmenuName=req.body.name;     //using body parser to get text data on scripts input and story via assign3text
+  var idforMenu=req.body.id;    //using body parse to get user_ID input on scripts file
+  //var newPrice=req.body.
+  var newprice=req.body.price;
+  var newkind=req.body.kind;
+  
+                   
+   menus.push({               //push these data on server
+     id:idforMenu,              //id
+     name:textmenuName,          //created_at
+     price:newprice,              //text
+     kind:newkind,         //screen_name
+  });
+  res.send('successfully created');
+})
+
+//put here
+
+app.put('/buildapp/menus/:id',function(req,res){   
+  var id=req.params.id;                         //wrap id 
+  var newname=req.body.name;      //wrap screen_name that input and story newscreen_name
+  var newprice=req.body.price;     //wrap price
+  var newkind=req.body.kind;        //wrap newkind
+  var found=false;                          
+ 
+  
+ menus.forEach(function(menu,index){   //loop all items
+  if(!found&&menu.id==Number(id)){                   
+     menu.name=newname;
+     menu.price=newprice;
+     menu.kind=newkind;
+  }
+})
+
+
+     res.send('successfully updated data');   //message display when successfully updated
+})
+//delete here
+
+app.delete('/buildapp/menus/:id',function(req,res){
+  var id=req.params.id;                        //wrap id
+  var found=false;
+  menus.forEach(function(menu,index){ //loop
+     if(!found&&menu.id==Number(id)){
+          menus.splice(index,1);
+     }
+  })
+
+  res.send('successfully deleted product');
+})
+//for new website
+app.get("/createmenu",checkNotAuthenticated,(req,res)=>{
+
+  res.render("createmenu");
+  
+ })
+ app.get("/createmenu/menus",checkNotAuthenticated,(req,res)=>{
+
+  res.send({menus:menus});
+  
+ })
+
+//new put here
+/*
+put('/buildapp/menu/:id',function(req,res){
+  var id=req.params.id;
+  newName=req.body.newName;
+  var fourd=false;
+
+menu.forEach(function(menu,index){
+   if(!found&&menu.id===Number(id)){
+       menu.name=newName;
+   }
+
+
+
+})
+})
+*/
+
+
+
 app.post(                                             //method post if authenticated and failure return this login page
   "/login",
   checkNotAuthenticated,

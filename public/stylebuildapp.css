@@ -1,0 +1,79 @@
+*{
+    margin:20;
+    padding:20;
+    font-family: sans-serif;
+    
+}
+body{
+    background-image:linear-gradient(rgba(0, 2, 0, 0.664),rgba(1, 0, 1, 0.527)),url("./images/imageMenu2.jpg");
+    background-color: aqua;
+    text-align: left;
+
+
+
+}
+.h1{
+
+color:yellow;
+
+
+}
+.h2{
+    
+    color:yellow;
+}
+.th1{
+color:yellow;
+
+
+}
+.th2{
+color:yellow;
+text-align: justify;
+text-indent: 0cm;
+
+
+
+}
+.th3{
+
+   margin:0;
+   padding:0; 
+}
+.button{
+ background-color: green;
+ border:0cm;
+ color:white;
+ text-align: center;
+ text-decoration: aliceblue;
+ display: inline-block;
+ font-weight: bold;
+ font-size: 20;
+
+
+}
+.button1{
+    background-color:blue;
+    border:0cm;
+    color:white;
+    text-align: center;
+    text-decoration: aliceblue;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 20;
+   
+   
+   }
+   .button2{
+    
+    background-color:yellow;
+    border:0cm;
+    color:green;
+    text-align: center;
+    text-decoration: aliceblue;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 20;
+   
+   
+   }

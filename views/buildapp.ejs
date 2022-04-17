@@ -1,35 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>  GoRestaurant Apps   </title>
+  <link rel="stylesheet" href="stylebuildapp.css">
+
+
 </head>
   
   <body> 
-  <h1>     GoRestaurant </h1>
-  <h1> Which food is including in your menu <br> 
+  <h1>    <div class="h1">  GoRestaurant </div></h1>
+  <h1>  <div class="h2">MENU SELECTION</div> <br> 
 
   </h1>
-  <button  id="get-button">   MENU_GET </button>
+  <div class="th3"> 
+  <button id="get-button"> <div class="button">  MENU_GET</div> </button> 
   <form id="create-form">
+     <label > <div class="th2">id</div></label>
       <input type="text" id="idcreate-input">
-      <label > id_input </label>
+      <label > <div class="th2">name </div></label>
       <input type="text" id="textcreate-input">
-      <label >text_input </label>      
-      <button> MENU_POST </button>
+      <label > <div class="th2">price</div> </label> 
+      <input type="text" id="price-input">
+      <label > <div class="th2">kind </div></label> 
+      <input type="text" id="kind-input">
+       
+      <button><div class="button1"> MENU_POST </div></button>
   </form>
- 
+  </div>
+
  
 
   <hr>
   <table>
       <thead> 
           <tr>            
-              <th>  ID  </th>
-              <th>  name </th>
-              <th>  time </th>
-              <th>  price </th>
-              <th>  Action </th>
-              <th>  Button </th>
+              <th><div class="th1">  ID  </div></th>
+              <th> <div class="th1"> Name </div></th>
+              <th> <div class="th1">Price </div> </th>
+              <th> <div class="th1"> Kind </div></th>
+              <th> <div class="th1"> Button </div></th>
 
 
           </tr>
@@ -40,18 +49,19 @@
 <tbody>   </tbody>
 
 
+
   </table>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js" >  </script>
-  <script src="scripts.js">     
-  
-  </script>
+
+
+  <script src="./javascripts/jquery-3.6.0.min.js" >  </script>
+
+  <script src="./javascripts/scripts.js">   </script>
  
 
-
   </body>
+<a href="/createmenu"> <button  id="apps-button"><div class="button2">   CREATE_MENU </div></button></a>
 
 
-  
 
 
 </html>
