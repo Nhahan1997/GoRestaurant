@@ -1,24 +1,15 @@
 $(function(){
     $.ajax({                               //using ajax to write code
-        url: '/reservation/reservations',               //access url data stored in serever
+        url: '/createReservation/reservations',               //access url data stored in serever
         contentType: 'application/json',     //type of json
         success: function(response){         //when suceess that function below is append these field and button in web
           console.log(response);
-          var tbodyEl=$('tbody');             //using tbody to append
-          tbodyEl.html(''); 
+          var body=$('body');             //using tbody to append
+          body.html(''); 
+          body.append('<h1> Reseveration Information</h1>');
           response.reservations.forEach(function(reservations){          
-            tbodyEl.append('\
-            <tr>\
-            <td class="id" >' +reservations.id+'</td>\
-            <td><input type="text" class="customer" value= "'+reservations.customer+ '"></td>\
-            <td><input type="text" class="seat" value= "'+reservations.seat+ '"></td>\
-            <td><input type="text" class="available" value="'+reservations.available+ '"></td>\
-            <td><input type="text" class="time" value="'+reservations.time+ '"></td>\
-            <td>\
-            <button class ="update-button">CHANGE</button>\
-            <button class ="delete-button">CANCEL</button>\
-            </td>\
-            </tr>\
+            body.append('\
+            <h2 class="text">  '+reservations.id+'. Custome name: '+reservations.customer+' booked '+reservations.seat+ ' seats. They are '+reservations.available+' at: '+reservations.time+ '\
             ');
           });   
         }
