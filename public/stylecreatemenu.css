@@ -8,6 +8,9 @@ body{
     background-image:linear-gradient(rgba(0, 2, 0, 0.664),rgba(1, 0, 1, 0.527)),url("./images/imageMenu3.jpg");
     background-color: aqua;
     text-align: left;
+    color:whitesmoke;
+    font-size-adjust: inherit;
+    
 
 
 
