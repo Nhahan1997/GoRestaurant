@@ -1,0 +1,22 @@
+[{
+    "id": "1",
+    "size": "small",
+    "favorite":"Seafood",
+    "featured":"Spicy"
+   
+  },
+  
+  {
+    "id": "2",
+    "size": "medium",
+    "favorite":"ASIAN special soup",
+    "featured": "Decorated food seving"
+  },
+  {
+    "id": "3",
+    "size": "large",
+    "favorite":"Tropical fruits dessert ",
+    "featured":"Fresh"
+
+  }]
+ 

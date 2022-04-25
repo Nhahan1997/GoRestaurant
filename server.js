@@ -17,7 +17,8 @@ const app = express();
 const fs=require('fs');                                  //read file fs
 var menus=[];                                             //create array to store menus from read file
 var reservations=[];                                       //create array to store reservations from read file
-
+var sizes=[];                                              //create array to store sizes
+var orders=[];
 app.use(session({ secret: 'somevalue' }));                  //'somevalue'
 //add code here to solve deprecated
 
@@ -82,7 +83,7 @@ fs.readFile('menu.json','utf8',function(err,data){       //function readfile
   k=k+1;                                                //increament to store data via loop
   console.log(menus)                          // check data in console log
   }   
-
+})
 
   let j=0;
   fs.readFile('reservation.json','utf8',function(err,data1){       //function readfile
@@ -98,8 +99,51 @@ fs.readFile('menu.json','utf8',function(err,data){       //function readfile
     }
     j=j+1;                                                //increament to store data via loop
     console.log(reservations)                          // check data in console log
-    }   
+    }
+  })   
   
+  let m=0;
+    //read size file
+
+    fs.readFile('size.json','utf8',function(err,data2){       //function readfile 
+      if(err) throw err;                                   //if read file error, get the notice
+      let readData2=JSON.parse(data2);                          //parse data and then store on variable readData
+      for(const eachItem of readData2){                     //loop to get data
+        sizes[m]={                       
+          id:eachItem.id,                             //get id
+          size:eachItem.size,                         //get customer of reservation
+          favorite: eachItem.favorite,
+          featured:eachItem.featured
+         
+      }
+      m=m+1;                                                //increament to store data via loop
+      console.log(sizes)                          // check data in console log
+      }
+    })   
+    //read file order.json
+    
+
+    let n=0;
+    //read size file
+
+    fs.readFile('order.json','utf8',function(err,data3){       //function readfile 
+      if(err) throw err;                                   //if read file error, get the notice
+      let readData3=JSON.parse(data3);                          //parse data and then store on variable readData
+      for(const eachItem of readData3){                     //loop to get data
+        orders[n]={    
+          name: eachItem.name,                   
+          food:eachItem.food,                             //get id
+          quantity:eachItem.quantity,                         //get customer of reservation
+          size: eachItem.size,
+          add:eachItem.add
+         
+      }
+      n=n+1;                                                //increament to store data via loop
+      console.log(orders)                          // check data in console log
+      }
+    })   
+    //read file order.json
+    
 
 
   //Restful API get
@@ -121,6 +165,25 @@ app.get("/buildapp",checkNotAuthenticated,(req,res)=>{      //get buildapp page 
   res.send({menus:menus});
   
  })
+
+ app.get("/buildapp/menus/sizes",checkNotAuthenticated,(req,res)=>{  //send data of size
+
+  res.send({sizes:sizes});
+  
+ })
+
+
+ //when getting to oder
+//send data of order
+
+app.get("/order/orders",checkNotAuthenticated,(req,res)=>{  //send data of size
+
+  res.send({orders:orders});
+  
+ })
+
+
+
 //new post here
 app.post('/buildapp/menus',function(req,res){
   var textmenuName=req.body.name;     //using body parser to get text data on scripts input and story via assign3text
@@ -266,6 +329,37 @@ app.get("/createReservation",checkNotAuthenticated,(req,res)=>{  //build an app 
   
  })
 
+//new order here
+
+
+//FOR ORDER APP
+app.get("/order",checkNotAuthenticated,(req,res)=>{      //get buildapp page and render buildapp file
+
+
+  res.render("order");
+
+  })
+//POST FOR ORDER 
+app.post('/order/orders',function(req,res){
+  var newName=req.body.name;
+  var newFood=req.body.food;     //using body parser to get text data on scripts input and story via assign3text
+  var newQuantity=req.body.quantity;    //using body parse to get user_ID input on scripts file
+  //var newPrice=req.body.
+  var newSize=req.body.size;
+  var newAdd=req.body.add;
+  
+                   
+   orders.push({               //push these data on server
+     name:newName,
+     food:newFood,              //id
+     quantity:newQuantity,          //created_at
+     size:newSize,              //text
+     add:newAdd,         //screen_name
+  });
+  res.send('successfully created');
+})
+
+
 
 
 app.post(                                             //method post if authenticated and failure return this login page
@@ -317,5 +411,5 @@ mongoose
       console.log("Server is running on Port 3000");
     });
   })
-})
-})
+
+

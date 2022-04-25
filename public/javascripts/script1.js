@@ -11,7 +11,7 @@ $(function(){
          // body.append('Number           Name               Price                 Kind') ;
           response.menus.forEach(function(menus){          
             body.append('\
-            <h1>' +menus.id+'.    '+menus.name    +'   $'+menus.price        + '    '   +menus.kind+ '</h1>\
+            <h1>' +menus.id+'.    '+menus.name    +'..........  $'+menus.price        + '..........    '   +menus.kind+ '</h1>\
                   ');
           });   
         }
