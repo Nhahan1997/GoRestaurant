@@ -1,7 +1,6 @@
 const express = require("express");                       //create constant using express 
 const mongoose = require("mongoose");                    //create constant using mongoose
-const passport = require("passport");                    //Passport is an authentication middleware for Node
-                                                         // that authenticates requests.
+const passport = require("passport");                    //Passport is an authentication middleware for Node                                                         // that authenticates requests.
 const session = require("express-session");              //Create a session middleware with the given options.
 const methodOverride = require("method-override");       //create constant using methodOverride
 const flash = require("express-flash");                  //create constant using flash
@@ -70,7 +69,7 @@ app.get("/", checkNotAuthenticated, (req, res) => {         //get home page and 
 
 let k=0;
 //readfile json menu and send data
-fs.readFile('menu.json','utf8',function(err,data){       //function readfile
+fs.readFile('menu.json','utf8',function(err,data){       //function readfile menu
   if(err) throw err;                                   //if read file error, get the notice
   let readData=JSON.parse(data);                          //parse data and then store on variable readData
   for(const eachItem of readData){                     //loop to get data
@@ -86,16 +85,16 @@ fs.readFile('menu.json','utf8',function(err,data){       //function readfile
 })
 
   let j=0;
-  fs.readFile('reservation.json','utf8',function(err,data1){       //function readfile
+  fs.readFile('reservation.json','utf8',function(err,data1){       //function readfile for reservation
     if(err) throw err;                                   //if read file error, get the notice
     let readData1=JSON.parse(data1);                          //parse data and then store on variable readData
-    for(const eachItem of readData1){                     //loop to get data
+    for(const eachItem of readData1){                         //loop to get data
       reservations[j]={                       
-        id:eachItem.id,                             //get id
+        id:eachItem.id,                                      //get id
         customer:eachItem.customer,                         //get customer of reservation
         seat:eachItem.seat,                                 //get seat booking for customer
         available:eachItem.available,                       //get information of seats is booked or empty
-        time:eachItem.time,                         //get time that customer booking
+        time:eachItem.time,                                //get time that customer booking
     }
     j=j+1;                                                //increament to store data via loop
     console.log(reservations)                          // check data in console log
@@ -105,15 +104,15 @@ fs.readFile('menu.json','utf8',function(err,data){       //function readfile
   let m=0;
     //read size file
 
-    fs.readFile('size.json','utf8',function(err,data2){       //function readfile 
+    fs.readFile('size.json','utf8',function(err,data2){       //function readfile for size
       if(err) throw err;                                   //if read file error, get the notice
-      let readData2=JSON.parse(data2);                          //parse data and then store on variable readData
-      for(const eachItem of readData2){                     //loop to get data
+      let readData2=JSON.parse(data2);                     //parse data and then store on variable readData
+      for(const eachItem of readData2){                    //loop to get data
         sizes[m]={                       
-          id:eachItem.id,                             //get id
-          size:eachItem.size,                         //get customer of reservation
-          favorite: eachItem.favorite,
-          featured:eachItem.featured
+          id:eachItem.id,                                 //get id
+          size:eachItem.size,                            //get size
+          favorite: eachItem.favorite,                    //get favorite 
+          featured:eachItem.featured                      //get feature
          
       }
       m=m+1;                                                //increament to store data via loop
@@ -126,7 +125,7 @@ fs.readFile('menu.json','utf8',function(err,data){       //function readfile
     let n=0;
     //read size file
 
-    fs.readFile('order.json','utf8',function(err,data3){       //function readfile 
+    fs.readFile('order.json','utf8',function(err,data3){       //function readfile for order
       if(err) throw err;                                   //if read file error, get the notice
       let readData3=JSON.parse(data3);                          //parse data and then store on variable readData
       for(const eachItem of readData3){                     //loop to get data
@@ -195,10 +194,10 @@ app.post('/buildapp/menus',function(req,res){
   
                    
    menus.push({               //push these data on server
-     id:idforMenu,              //id
-     name:textmenuName,          //created_at
-     price:newprice,              //text
-     kind:newkind,         //screen_name
+     id:idforMenu,              //push id for menus
+     name:textmenuName,          //push name for menus
+     price:newprice,              //push price for menus
+     kind:newkind,         //push kind for menus
   });
   res.send('successfully created');
 })
@@ -207,9 +206,9 @@ app.post('/buildapp/menus',function(req,res){
 
 app.put('/buildapp/menus/:id',function(req,res){   
   var id=req.params.id;                         //wrap id 
-  var newname=req.body.name;      //wrap screen_name that input and story newscreen_name
-  var newprice=req.body.price;     //wrap price
-  var newkind=req.body.kind;        //wrap newkind
+  var newname=req.body.name;      //wrap newname that input and store name
+  var newprice=req.body.price;     //wrap newprice that input and store price
+  var newkind=req.body.kind;        //wrap newkind that input and store new kind
   var found=false;                          
  
   
@@ -227,9 +226,9 @@ app.put('/buildapp/menus/:id',function(req,res){
 //delete here
 
 app.delete('/buildapp/menus/:id',function(req,res){
-  var id=req.params.id;                        //wrap id
+  var id=req.params.id;                        //wrap id for deleting
   var found=false;
-  menus.forEach(function(menu,index){ //loop
+  menus.forEach(function(menu,index){ //loop menu by id
      if(!found&&menu.id==Number(id)){
           menus.splice(index,1);
      }
@@ -243,9 +242,9 @@ app.get("/createmenu",checkNotAuthenticated,(req,res)=>{  //build an app for men
   res.render("createmenu");                               //render website menu using data from menu
   
  })
- app.get("/createmenu/menus",checkNotAuthenticated,(req,res)=>{
+ app.get("/createmenu/menus",checkNotAuthenticated,(req,res)=>{  
 
-  res.send({menus:menus});
+  res.send({menus:menus});                             //sending data of menus while reaching the menus page
   
  })
 
@@ -259,46 +258,45 @@ app.get("/reservation",checkNotAuthenticated,(req,res)=>{      //get reservation
   })
  app.get("/reservation/reservations",checkNotAuthenticated,(req,res)=>{ //get reservations and send data
 
-  res.send({reservations:reservations});
+  res.send({reservations:reservations});                             //data of reservation
   
  })
 
  //post here for RESERVATION app
  app.post('/reservation/reservations',function(req,res){
-  var newCustomer=req.body.customer;     //using body parser to get customer
-  var idforCustomer=req.body.id;    //using body parse to ID for reservation
-  var newSeat=req.body.seat;        //using body parse to get Seat for reservation
-  var newAvailable=req.body.available;  //using body parse to get available reservation
-  var newTime=req.body.time;         //using body parse to get time for reservation
+  var newCustomer=req.body.customer;                      //using body parser to get customer
+  var idforCustomer=req.body.id;                         //using body parse to ID for reservation
+  var newSeat=req.body.seat;                             //using body parse to get Seat for reservation
+  var newAvailable=req.body.available;                   //using body parse to get available reservation
+  var newTime=req.body.time;                             //using body parse to get time for reservation
   
                    
    reservations.push({               
-     id:idforCustomer,        //post id
-     customer:newCustomer,    //post customer
-     seat:newSeat,          //post seat
-     available:newAvailable,   //post available
-     time:newTime,         //screen_name
+     id:idforCustomer,                                  //post id
+     customer:newCustomer,                              //post customer
+     seat:newSeat,                                      //post seat
+     available:newAvailable,                            //post available
+     time:newTime,                                      //screen_name
   });
   res.send('successfully created');
 })
 //put here for RESERVATION app
-//put here FOR MENU
 
 app.put('/reservation/reservations/:id',function(req,res){   
   var id=req.params.id;                         //wrap id 
-  var newCustomer=req.body.customer;      //wrap customer name that input and store newsCustomer
-  var newSeat=req.body.seat;     //wrap seat 
-  var newAvailable=req.body.available;        //wrap available
-  var newTime=req.body.time; 
+  var newCustomer=req.body.customer;            //wrap customer name that input and store newsCustomer
+  var newSeat=req.body.seat;                    //wrap seat 
+  var newAvailable=req.body.available;         //wrap available
+  var newTime=req.body.time;                    //wrap newTime input for reservation
   var found=false;                          
  
   
  reservations.forEach(function(reservation,index){   //loop all items
   if(!found&&reservation.id==Number(id)){                   
-     reservation.customer=newCustomer;
-     reservation.seat=newSeat;
-     reservation.available=newAvailable;
-     reservation.time=newTime;
+     reservation.customer=newCustomer;                //response for each customer
+     reservation.seat=newSeat;                        //response for each seat
+     reservation.available=newAvailable;              //response for each available
+     reservation.time=newTime;                        //response for each time
   }
 })
 
@@ -307,11 +305,11 @@ app.put('/reservation/reservations/:id',function(req,res){
 })
 //DELETE here for RESERVATION
 
-app.delete('/reservation/reservations/:id',function(req,res){
-  var id=req.params.id;                        //wrap id
+app.delete('/reservation/reservations/:id',function(req,res){     //delete via id
+  var id=req.params.id;                                          //wrap id
   var found=false;
-  reservations.forEach(function(reservation,index){ //loop
-     if(!found&&reservation.id==Number(id)){
+  reservations.forEach(function(reservation,index){              //loop
+     if(!found&&reservation.id==Number(id)){                     //check if id is equal
           reservations.splice(index,1);
      }
   })
@@ -319,18 +317,18 @@ app.delete('/reservation/reservations/:id',function(req,res){
   res.send('successfully cancel reservation');
 })
 //for new website of RESERVATION
-app.get("/createReservation",checkNotAuthenticated,(req,res)=>{  //build an app for menu
+app.get("/createReservation",checkNotAuthenticated,(req,res)=>{  //build a web page for reservation
 
-  res.render("createReservation");                               //render website menu using data from menu
+  res.render("createReservation");                               //render createReservation page
   
  })
- app.get("/createReservation/reservations",checkNotAuthenticated,(req,res)=>{
+ app.get("/createReservation/reservations",checkNotAuthenticated,(req,res)=>{  //reaching to reservations
 
-  res.send({reservations:reservations});
+  res.send({reservations:reservations});                                //send data of reservation
   
  })
 
-//new order here
+//new ORDER APP here
 
 
 //FOR ORDER APP
@@ -343,29 +341,28 @@ app.get("/order",checkNotAuthenticated,(req,res)=>{      //get buildapp page and
 
   //sent data
 
-  app.get("/order/orthers",checkNotAuthenticated,(req,res)=>{
+  app.get("/order/orders",checkNotAuthenticated,(req,res)=>{     //reaching to order pages
 
-    res.send({others:others});
-    
+    res.send({orders:orders});                                   //sending data of oder
+     
    })
 //POST FOR ORDER 
 app.post('/order/orders',function(req,res){
-  var newid=req.body.id
-  var newName=req.body.name;
-  var newFood=req.body.food;     //using body parser to get text data on scripts input and story via assign3text
+  var newid=req.body.id                 //using body parse to wrap id
+  var newName=req.body.name;            //using body parse to warp newName
+  var newFood=req.body.food;            //using body parser to get text data on scripts input and story via assign3text
   var newQuantity=req.body.quantity;    //using body parse to get user_ID input on scripts file
-  //var newPrice=req.body.
   var newSize=req.body.size;
   var newAdd=req.body.add;
   
                    
-   orders.push({               //push these data on server
-      id:newid,
-     name:newName,
-     food:newFood,              //id
-     quantity:newQuantity,          //created_at
-     size:newSize,              //text
-     add:newAdd,         //screen_name
+   orders.push({                        //push these data on server
+      id:newid,                         //push id on page
+     name:newName,                      //push name on page
+     food:newFood,                      //push food on page
+     quantity:newQuantity,              //push quantity on page
+     size:newSize,                      //push size on page
+     add:newAdd,                        //screen_name
   });
   res.send('successfully created');
 })
@@ -374,32 +371,32 @@ app.post('/order/orders',function(req,res){
 
 app.put('/order/orders/:id',function(req,res){   
   var id=req.params.id;                         //wrap id 
-  var newFood=req.body.food;      //wrap customer name that input and store newsCustomer
-  var newName=req.body.name;     //wrap seat 
-  var newQuantity=req.body.quantity;        //wrap available
+  var newFood=req.body.food;                    //wrap customer name that input and store newsCustomer
+  var newName=req.body.name;                    //wrap seat 
+  var newQuantity=req.body.quantity;            //wrap available
   var newSize=req.body.size; 
   var newAdd=req.body.add;
   var found=false;                          
  
   
- orders.forEach(function(order,index){   //loop all items
+ orders.forEach(function(order,index){        //loop all items
   if(!found&&order.id==Number(id)){   
-    order.name=newName;  
-    order.food=newFood;              
-     order.quantity=newQuantity;
-     order.size=newSize;
-     order.add=newAdd;
+    order.name=newName;                       //response for each name
+    order.food=newFood;                       //response for each food
+     order.quantity=newQuantity;              //response for each quantity
+     order.size=newSize;                      //repsonse for each size
+     order.add=newAdd;                        //response for each add
      
   }
 })
 })
 //DELETE FOR ORDER
 app.delete('/order/orders/:id',function(req,res){
-  var id=req.params.id;                        //wrap id
+  var id=req.params.id;                        //wrap id for deleting
   var found=false;
-  orders.forEach(function(order,index){ //loop
-     if(!found&&order.id==Number(id)){
-          orders.splice(index,1);
+  orders.forEach(function(order,index){       //loop
+     if(!found&&order.id==Number(id)){         //check if equal for each id
+          orders.splice(index,1);  
      }
   })
 
@@ -412,7 +409,7 @@ app.post(                                             //method post if authentic
   "/login",
   checkNotAuthenticated,
   passport.authenticate("local", {
-    successRedirect: "/index",
+    successRedirect: "/index",                          //if success go to index , if not return to login page
     failureRedirect: "/login",
     failureFlash: true,
   })
@@ -421,7 +418,7 @@ app.post(                                             //method post if authentic
 app.post("/register", checkNotAuthenticated, async (req, res) => {   //get the register page
   const userFound = await User.findOne({ email: req.body.email });   //using userFound to compare that users are aldready created or not
 
-  if (userFound) {                       //if userFount true
+  if (userFound) {                       //if user Found true
     req.flash("error", " Please register with another user, this email has been used to create account");  //notify this email has been used
     res.redirect("/register");                  //otherwise keep the register page
   } else {

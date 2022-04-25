@@ -1,26 +1,23 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
-
+var createError = require('http-errors');                  //create variable create Error for using
+var express = require('express');                          //create variable express for using
+var path = require('path');                                //create a path for using
+var cookieParser = require('cookie-parser');               //create a cookie parser for using
+var logger = require('morgan');                            
+var indexRouter = require('./routes/index');               //create a indexRouter for using
+var usersRouter = require('./routes/users');               //create userRouter for using
+var app = express();                                       //create an app for using
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'));           //set views is the pate for reading ejs
+app.set('view engine', 'jade');                            // set jade by enging
 
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json());                                   //using express json
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());                                   //using cookie parser
+app.use(express.static(path.join(__dirname, 'public')));    //render file ejs in public
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', indexRouter);                                 //using / for indexRouter
+app.use('/users', usersRouter);                            //using /users for userRouter
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
