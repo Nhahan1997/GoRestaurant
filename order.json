@@ -1,20 +1,20 @@
 [{
   "id": "1",
-    "name":"",
-    "food": "",
-    "quantity":"",
-    "size":"",
-    "add":""
+    "name":"Leo",
+    "food": "chicken soup",
+    "quantity":"3",
+    "size":"medium",
+    "add":"Seven Up"
    
   },
   
   {
     "id":"2",
-    "name":"",
-    "food": "",
-    "quantity":"",
-    "size":"",
-    "add":""
+    "name":"Nguyen",
+    "food": "steak",
+    "quantity":"4",
+    "size":"large",
+    "add":"Pepsi"
   },
   {
     "id":"3",

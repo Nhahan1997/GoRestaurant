@@ -131,11 +131,12 @@ fs.readFile('menu.json','utf8',function(err,data){       //function readfile
       let readData3=JSON.parse(data3);                          //parse data and then store on variable readData
       for(const eachItem of readData3){                     //loop to get data
         orders[n]={    
-          name: eachItem.name,                   
-          food:eachItem.food,                             //get id
-          quantity:eachItem.quantity,                         //get customer of reservation
-          size: eachItem.size,
-          add:eachItem.add
+          id:eachItem.id,                                  //id for each order
+          name: eachItem.name,                             //name for each order 
+          food:eachItem.food,                             //food for each order
+          quantity:eachItem.quantity,                     //quantity for each order
+          size: eachItem.size,                            //size for each order
+          add:eachItem.add                                //add for each order
          
       }
       n=n+1;                                                //increament to store data via loop
@@ -160,7 +161,7 @@ app.get("/buildapp",checkNotAuthenticated,(req,res)=>{      //get buildapp page 
   res.render("buildapp");
 
   })
- app.get("/buildapp/menus",checkNotAuthenticated,(req,res)=>{
+ app.get("/buildapp/menus",checkNotAuthenticated,(req,res)=>{   //send data menus when get the pages
 
   res.send({menus:menus});
   
@@ -168,7 +169,7 @@ app.get("/buildapp",checkNotAuthenticated,(req,res)=>{      //get buildapp page 
 
  app.get("/buildapp/menus/sizes",checkNotAuthenticated,(req,res)=>{  //send data of size
 
-  res.send({sizes:sizes});
+  res.send({sizes:sizes});                                          //send data sizes into page
   
  })
 
@@ -176,9 +177,9 @@ app.get("/buildapp",checkNotAuthenticated,(req,res)=>{      //get buildapp page 
  //when getting to oder
 //send data of order
 
-app.get("/order/orders",checkNotAuthenticated,(req,res)=>{  //send data of size
+app.get("/order/orders",checkNotAuthenticated,(req,res)=>{  //send data of order
 
-  res.send({orders:orders});
+  res.send({orders:orders});                               
   
  })
 
@@ -214,9 +215,9 @@ app.put('/buildapp/menus/:id',function(req,res){
   
  menus.forEach(function(menu,index){   //loop all items
   if(!found&&menu.id==Number(id)){                   
-     menu.name=newname;
-     menu.price=newprice;
-     menu.kind=newkind;
+     menu.name=newname;                        //found name and new name
+     menu.price=newprice;                      //found price and new price
+     menu.kind=newkind;                        //found kind and new kind
   }
 })
 
@@ -339,8 +340,17 @@ app.get("/order",checkNotAuthenticated,(req,res)=>{      //get buildapp page and
   res.render("order");
 
   })
+
+  //sent data
+
+  app.get("/order/orthers",checkNotAuthenticated,(req,res)=>{
+
+    res.send({others:others});
+    
+   })
 //POST FOR ORDER 
 app.post('/order/orders',function(req,res){
+  var newid=req.body.id
   var newName=req.body.name;
   var newFood=req.body.food;     //using body parser to get text data on scripts input and story via assign3text
   var newQuantity=req.body.quantity;    //using body parse to get user_ID input on scripts file
@@ -350,6 +360,7 @@ app.post('/order/orders',function(req,res){
   
                    
    orders.push({               //push these data on server
+      id:newid,
      name:newName,
      food:newFood,              //id
      quantity:newQuantity,          //created_at
@@ -358,7 +369,42 @@ app.post('/order/orders',function(req,res){
   });
   res.send('successfully created');
 })
+//put here for RESERVATION app
+//put here FOR MENU
 
+app.put('/order/orders/:id',function(req,res){   
+  var id=req.params.id;                         //wrap id 
+  var newFood=req.body.food;      //wrap customer name that input and store newsCustomer
+  var newName=req.body.name;     //wrap seat 
+  var newQuantity=req.body.quantity;        //wrap available
+  var newSize=req.body.size; 
+  var newAdd=req.body.add;
+  var found=false;                          
+ 
+  
+ orders.forEach(function(order,index){   //loop all items
+  if(!found&&order.id==Number(id)){   
+    order.name=newName;  
+    order.food=newFood;              
+     order.quantity=newQuantity;
+     order.size=newSize;
+     order.add=newAdd;
+     
+  }
+})
+})
+//DELETE FOR ORDER
+app.delete('/order/orders/:id',function(req,res){
+  var id=req.params.id;                        //wrap id
+  var found=false;
+  orders.forEach(function(order,index){ //loop
+     if(!found&&order.id==Number(id)){
+          orders.splice(index,1);
+     }
+  })
+
+  res.send('successfully cancel reservation');
+})
 
 
 
